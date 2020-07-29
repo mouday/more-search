@@ -1,19 +1,8 @@
 <template>
-  <div>
-    <form action="/">
-      <van-search v-model="value"
-        placeholder="请输入搜索关键词"
-        @search="onSearch" />
-    </form>
-
-    <van-tabbar v-model="active"
-      route>
-      <van-tabbar-item replace
-        to="/search"
-        icon="search">搜索</van-tabbar-item>
-      <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
-    </van-tabbar>
+  <div class="search">
+    <iframe :src="currentUrl"
+      frameborder="0"
+      @load="handleChange"></iframe>
   </div>
 </template>
 
@@ -26,8 +15,16 @@ export default {
     return {
       value: "",
       active: "",
+      currentUrl: "https://www.baidu.com/",
     };
   },
+
+  watch: {
+    currentUrl(val) {
+      console.log(val);
+    },
+  },
+
   methods: {
     onSearch(val) {
       Toast(val);
@@ -35,6 +32,25 @@ export default {
     onCancel() {
       Toast("取消");
     },
+
+    handleChange(val) {
+      console.log(val);
+      //       var url = obj.contentWindow.location.href;
+      // if(url.indexOf("bizOrderId") != -1) {
+      // console.log(url);
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.search {
+  width: 100%;
+  height: 100%;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+</style>
